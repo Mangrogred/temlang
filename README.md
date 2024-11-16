@@ -20,4 +20,4 @@ temlang tem
 ```
 
 ## Wha neu?
-noting, tEM made tEM first programm version
+tEM update code and make dictianry bigger, also tEM thinks that it iz temlang version tvvo
