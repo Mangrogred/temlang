@@ -1,16 +1,22 @@
+// tEM make a kool UPDAtE!
+
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#define MAX_LINE_LENGTH 256
-#define DICT_SIZE 53
+#include <stdlib.h>
+#include <unistd.h>
 
 
 // why did u lookin in ma code? btw tEM! iz VERYY!! happy cuz u r VERYY!! interested in tEMs! code
+
+#define MAX_LINE_LENGTH 256
+#define DICT_SIZE 114
 
 typedef struct {
     char word[DICT_SIZE];
     char translation[DICT_SIZE];
 } DictionaryEntry;
+
 
 DictionaryEntry dictionary[DICT_SIZE] = {
     {"hello", "hOI!!!"},
@@ -65,7 +71,68 @@ DictionaryEntry dictionary[DICT_SIZE] = {
     {"dogs", "annoyin doggo's"},
     {"language", "linguineage"},
     {"temmy", "tEMMY!"},
-    {"me", "tEM"}
+    {"me", "tEM"},
+    {"apples", "APPLZ"},
+    {"banana", "bananaz"},
+    {"funny", "funnYyy"},
+    {"friends", "frenz"},
+    {"cute", "kyooot"},
+    {"super", "supaa"},
+    {"superstar", "suprstarr"},
+    {"fantastic", "fanTASTik"},
+    {"play", "plai"},
+    {"peace", "PEACEE!"},
+    {"happy", "hAPpY!"},
+    {"good", "gud"},
+    {"bad", "baddd"},
+    {"love", "luv"},
+    {"loveee", "LUVEEE"},
+    {"internet", "inturrnet"},
+    {"computer", "compootah"},
+    {"time", "tyme"},
+    {"clock", "clok"},
+    {"work", "wurk"},
+    {"dance", "dantz"},
+    {"sing", "singg"},
+    {"music", "muZik"},
+    {"movie", "moviiee"},
+    {"book", "boook"},
+    {"read", "readdd"},
+    {"study", "studi"},
+    {"sleep", "sleeep"},
+    {"coffee", "coffy"},
+    {"tea", "teaa"},
+    {"water", "wataaa"},
+    {"juice", "juicce"},
+    {"apple", "appull"},
+    {"grape", "grapayyy"},
+    {"orange", "oranjee"},
+    {"chocolate", "chocoalte"},
+    {"cake", "caak"},
+    {"cookie", "cookiiie"},
+    {"birthday", "birtdeh"},
+    {"party", "pahrty"},
+    {"vacation", "vacayshun"},
+    {"dream", "dreem"},
+    {"sun", "suunn"},
+    {"moon", "muunn"},
+    {"star", "staaar"},
+    {"sky", "skee"},
+    {"rain", "raain"},
+    {"snow", "snooow"},
+    {"wind", "wiiind"},
+    {"cloud", "clowd"},
+    {"earth", "eearth"},
+    {"planet", "plannt"},
+    {"universe", "univurrse"},
+    {"galaxy", "gallaxxy"},
+    {"robot", "robooot"},
+    {"ai", "Aaii"},
+    {"machine", "machinnne"},
+    {"coding", "codding"},
+    {"developer", "develloooper"},
+    {"program", "prograam"},
+    {"tech", "teckk"}
 };
 
 int dict_size = DICT_SIZE;
@@ -84,6 +151,34 @@ void translate_word(const char *word) {
         }
     }
     printf("%s", word);
+}
+
+void process_word_with_punctuation(char *word) {
+    int length = strlen(word);
+    char punctuation[3] = {0};
+
+    int idx = 0;
+    while (ispunct(word[length - 1])) {
+        punctuation[idx++] = word[length - 1];
+        word[length - 1] = '\0';
+        length--;
+    }
+
+    int start_idx = 0;
+    while (ispunct(word[start_idx])) {
+        punctuation[idx++] = word[start_idx];
+        start_idx++;
+    }
+
+    char temp_word[MAX_LINE_LENGTH];
+    strcpy(temp_word, word + start_idx);
+    to_lowercase(temp_word);
+
+    translate_word(temp_word);
+
+    if (strlen(punctuation) > 0) {
+        printf("%s", punctuation);
+    }
 }
 
 void print_help() {
@@ -106,12 +201,12 @@ int main(int argc, char *argv[]) {
             return 1;
         }
 
-        input[strcspn(input, "\n")] = '\0';
+        input[strcspn(input, "\n")] = '\0'; 
         to_lowercase(input);
 
         char *token = strtok(input, " ");
         while (token != NULL) {
-            translate_word(token);
+            process_word_with_punctuation(token);
             token = strtok(NULL, " ");
             if (token) {
                 printf(" ");
@@ -123,7 +218,7 @@ int main(int argc, char *argv[]) {
             char word[MAX_LINE_LENGTH];
             strcpy(word, argv[i]);
             to_lowercase(word);
-            translate_word(word);
+            process_word_with_punctuation(word);
             if (i < argc - 1) {
                 printf(" ");
             }
